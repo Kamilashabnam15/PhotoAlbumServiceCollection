@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using TypicodeMicroservice.Models;
+using TypicodeMicroservice.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,11 +16,11 @@ namespace TypicodeMicroservice.Controllers
     [ApiController]
     public class PhotoAlbumController : ControllerBase
     {
-        private readonly IPhotoAlbumRepository photoAlbumRepository;
+        private readonly IPhotoAlbumService photoAlbumService;
 
-        public PhotoAlbumController(IPhotoAlbumRepository photoAlbumRepository)
+        public PhotoAlbumController(IPhotoAlbumService photoAlbumService)
         {
-            this.photoAlbumRepository = photoAlbumRepository;
+            this.photoAlbumService = photoAlbumService;
         }
         // GET: api/<TypicodeController>
         [HttpGet]
@@ -27,7 +28,7 @@ namespace TypicodeMicroservice.Controllers
         {
             try
             {
-                return Ok(await photoAlbumRepository.GetPhotoAlbum());
+                return Ok(await photoAlbumService.GetPhotoAlbum());
                 
             }
             catch
@@ -42,7 +43,7 @@ namespace TypicodeMicroservice.Controllers
         {
             try
             {
-                return Ok(await photoAlbumRepository.GetPhotoAlbumByUserID(id));
+                return Ok(await photoAlbumService.GetPhotoAlbumByUserID(id));
             }
 
             catch
